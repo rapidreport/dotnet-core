@@ -1,6 +1,6 @@
 RapidReport/dotnet-core
 ==================
-RapidReport/dotnet-core は .NET 用の帳票レンダリングエンジンです。
+RapidReport/dotnet-core は .NET Core 用の帳票レンダリングエンジンです。
 
 JSON 形式で記述した帳票定義ファイルを読み込み、データを渡すことで帳票を出力します。
 
