@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>jp.co.systembase.report.renderer.pdf</RootNamespace>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>systembase.report.renderer.pdf</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="elementrenderer\barcode\" />
+    <Folder Include="imageloader\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZXing.Net" Version="0.16.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\report\report.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="systembase.barcode">
+      <HintPath>..\dll\systembase.barcode.dll</HintPath>
+      <Private></Private>
+    </Reference>
+    <Reference Include="systembase.iTextSharp">
+      <HintPath>..\dll\systembase.iTextSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+# /
+/.vs
+/*.suo
+
+# /bin/
+/bin/*
+
+# /test/
+/test/bin
+/test/obj
+/test/*.user
+
+# /json/
+/json/bin
+/json/obj
+/json/*.user
+
+# /renderer.gdi/
+/renderer.gdi/bin
+/renderer.gdi/obj
+/renderer.gdi/*.user
+
+# /renderer.pdf/
+/renderer.pdf/bin
+/renderer.pdf/obj
+/renderer.pdf/*.user
+
+# /renderer.xls/
+/renderer.xls/bin
+/renderer.xls/obj
+/renderer.xls/*.user
+
+# /renderer.xlsx/
+/renderer.xlsx/bin
+/renderer.xlsx/obj
+/renderer.xlsx/*.user
+
+# /report/
+/report/bin
+/report/obj
+/report/*.user
+/_*.bat

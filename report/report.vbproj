@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>jp.co.systembase.report</RootNamespace>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>rapidreport.core</PackageId>
+    <Authors>systembase</Authors>
+    <Company>systembase</Company>
+    <Version>5.7</Version>
+    <AssemblyName>systembase.report</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="component\textsplitter\" />
+    <Folder Include="customizer\" />
+    <Folder Include="data\internal\" />
+    <Folder Include="elementpreprocessor\" />
+    <Folder Include="expression\" />
+    <Folder Include="method\" />
+    <Folder Include="operator\" />
+    <Folder Include="renderer\" />
+    <Folder Include="scanner\" />
+    <Folder Include="search\searchobject\" />
+    <Folder Include="textformatter\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+</Project>
