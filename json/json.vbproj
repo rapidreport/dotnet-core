@@ -4,6 +4,10 @@
     <RootNamespace>jp.co.systembase.json</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>systembase.json</AssemblyName>
+    <PackageId>jp.co.systembase.json</PackageId>
+    <Authors>systembase</Authors>
+    <Company>systembase</Company>
+    <Product>jp.co.systembase.json</Product>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,6 +4,11 @@
     <RootNamespace>jp.co.systembase.report.renderer.pdf</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>systembase.report.renderer.pdf</AssemblyName>
+    <Version>5.6</Version>
+    <Authors>systembase</Authors>
+    <Company>systembase</Company>
+    <PackageId>jp.co.systembase.report.renderer.pdf</PackageId>
+    <Product>jp.co.systembase.report.renderer.pdf</Product>
   </PropertyGroup>
 
   <ItemGroup>
