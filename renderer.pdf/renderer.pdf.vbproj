@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>jp.co.systembase.report.renderer.pdf</RootNamespace>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>systembase.report.renderer.pdf</AssemblyName>
   </PropertyGroup>
 

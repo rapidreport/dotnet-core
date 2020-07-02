@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\json\json.vbproj" />
+    <ProjectReference Include="..\renderer.gdi\renderer.gdi.vbproj" />
     <ProjectReference Include="..\renderer.pdf\renderer.pdf.vbproj" />
     <ProjectReference Include="..\report\report.vbproj" />
   </ItemGroup>

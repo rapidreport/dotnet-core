@@ -11,6 +11,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "json", "json\json.vbproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{E98399BD-13EB-4B6F-AD8B-AB4F9F68E3AD}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "renderer.gdi", "renderer.gdi\renderer.gdi.vbproj", "{6538265F-66A1-42DC-ACAF-64D7BDB5F2BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E98399BD-13EB-4B6F-AD8B-AB4F9F68E3AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E98399BD-13EB-4B6F-AD8B-AB4F9F68E3AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E98399BD-13EB-4B6F-AD8B-AB4F9F68E3AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6538265F-66A1-42DC-ACAF-64D7BDB5F2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6538265F-66A1-42DC-ACAF-64D7BDB5F2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6538265F-66A1-42DC-ACAF-64D7BDB5F2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6538265F-66A1-42DC-ACAF-64D7BDB5F2BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

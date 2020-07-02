@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>jp.co.systembase.report</RootNamespace>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <PackageId>rapidreport.core</PackageId>
     <Authors>systembase</Authors>
     <Company>systembase</Company>

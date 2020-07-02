@@ -2,10 +2,12 @@
 using jp.co.systembase.json;
 using jp.co.systembase.report;
 using jp.co.systembase.report.data;
+using jp.co.systembase.report.renderer.gdi;
 using jp.co.systembase.report.renderer.pdf;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Drawing.Printing;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -36,6 +38,13 @@ namespace test
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "meiryo.ttc,0"), 
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
                 pages.Render(renderer);
+            }
+
+            {
+                var printer = new Printer(pages);
+                printer.Setting.FontMap.Add("meiryo", "メイリオ");
+                var preview = new FmPrintPreview(printer);
+                preview.ShowDialog();
             }
         }
     }
