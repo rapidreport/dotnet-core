@@ -11,6 +11,10 @@
     <Product>jp.co.systembase.report.renderer.pdf</Product>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="elementrenderer\barcode\" />
     <Folder Include="imageloader\" />

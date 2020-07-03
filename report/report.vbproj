@@ -11,6 +11,10 @@
     <Product>jp.co.systembase.report</Product>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="component\textsplitter\" />
     <Folder Include="customizer\" />
