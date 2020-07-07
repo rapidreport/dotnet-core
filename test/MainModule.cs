@@ -21,6 +21,9 @@ namespace test
             Tests.Add(new Test_0_4());
             Tests.Add(new Test_0_5_PDF());
             Tests.Add(new Test_0_6());
+            Tests.Add(new Test_5_7_YbCode());
+            Tests.Add(new Test_5_7_IsNumeric());
+            Tests.Add(new Test_5_7_CharSpacing_Ng());
 
             Application.Run(new FmTest());
         }
