@@ -6,7 +6,7 @@
     <PackageId>jp.co.systembase.report</PackageId>
     <Authors>systembase</Authors>
     <Company>systembase</Company>
-    <Version>5.6</Version>
+    <Version>5.7</Version>
     <AssemblyName>systembase.report</AssemblyName>
     <Product>jp.co.systembase.report</Product>
   </PropertyGroup>
