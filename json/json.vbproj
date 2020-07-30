@@ -8,6 +8,8 @@
     <Authors>systembase</Authors>
     <Company>systembase</Company>
     <Product>jp.co.systembase.json</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>json.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
