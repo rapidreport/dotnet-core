@@ -10,6 +10,8 @@
     <Authors>systembase</Authors>
     <Company>systembase</Company>
     <Product>jp.co.systembase.report.renderer.gdi</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>renderer.gdi.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

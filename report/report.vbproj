@@ -6,9 +6,11 @@
     <PackageId>jp.co.systembase.report</PackageId>
     <Authors>systembase</Authors>
     <Company>systembase</Company>
-    <Version>5.7</Version>
+    <Version>5.8</Version>
     <AssemblyName>systembase.report</AssemblyName>
     <Product>jp.co.systembase.report</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>report.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

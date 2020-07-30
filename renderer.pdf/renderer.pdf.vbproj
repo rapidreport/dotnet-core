@@ -4,11 +4,13 @@
     <RootNamespace>jp.co.systembase.report.renderer.pdf</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>systembase.report.renderer.pdf</AssemblyName>
-    <Version>5.7</Version>
+    <Version>5.8</Version>
     <Authors>systembase</Authors>
     <Company>systembase</Company>
     <PackageId>jp.co.systembase.report.renderer.pdf</PackageId>
     <Product>jp.co.systembase.report.renderer.pdf</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>renderer.pdf.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
