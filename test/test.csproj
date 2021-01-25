@@ -62,6 +62,9 @@
     <None Update="rrpt\test_5_7_ybcode.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="rrpt\test_5_9_weekdayoperator.rrpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
