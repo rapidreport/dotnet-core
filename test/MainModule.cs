@@ -25,6 +25,7 @@ namespace test
             Tests.Add(new Test_5_7_IsNumeric());
             Tests.Add(new Test_5_7_CharSpacing_Ng());
             Tests.Add(new Test_5_9_WeekdayOperator());
+            Tests.Add(new Test_5_10_BackSlash());
 
             Application.Run(new FmTest());
         }
