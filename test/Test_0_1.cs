@@ -4,7 +4,9 @@ using jp.co.systembase.report;
 using jp.co.systembase.report.data;
 using jp.co.systembase.report.renderer.gdi;
 using jp.co.systembase.report.renderer.pdf;
+using jp.co.systembase.report.renderer.xlsx;
 using Newtonsoft.Json;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections;
 using System.Drawing.Printing;
@@ -38,6 +40,16 @@ namespace test
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "meiryo.ttc,0"), 
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
                 pages.Render(renderer);
+            }
+
+            using (FileStream fs = new FileStream(Path.Combine("out", name + ".xlsx"), FileMode.Create))
+            {
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XlsxRenderer renderer = new XlsxRenderer(workbook);
+                renderer.Setting.FontMap.Add("meiryo", "メイリオ");
+                renderer.NewSheet("sheet_name");
+                pages.Render(renderer);
+                workbook.Write(fs);
             }
 
             {

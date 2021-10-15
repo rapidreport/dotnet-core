@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
@@ -10,6 +10,7 @@
     <ProjectReference Include="..\json\json.vbproj" />
     <ProjectReference Include="..\renderer.gdi\renderer.gdi.vbproj" />
     <ProjectReference Include="..\renderer.pdf\renderer.pdf.vbproj" />
+    <ProjectReference Include="..\renderer.xlsx\renderer.xlsx.vbproj" />
     <ProjectReference Include="..\report\report.vbproj" />
   </ItemGroup>
 
@@ -77,6 +78,18 @@
   <ItemGroup>
     <Reference Include="systembase.iTextSharp">
       <HintPath>..\dll\systembase.iTextSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI">
+      <HintPath>..\dll\systembase.NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OOXML">
+      <HintPath>..\dll\systembase.NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OpenXml4Net">
+      <HintPath>..\dll\systembase.NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OpenXmlFormats">
+      <HintPath>..\dll\systembase.NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
   </ItemGroup>
 

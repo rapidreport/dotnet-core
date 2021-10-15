@@ -4,8 +4,8 @@ using jp.co.systembase.json;
 using jp.co.systembase.report;
 using jp.co.systembase.report.data;
 using jp.co.systembase.report.renderer.pdf;
-
-
+using jp.co.systembase.report.renderer.xlsx;
+using NPOI.XSSF.UserModel;
 
 namespace test
 {
@@ -30,6 +30,15 @@ namespace test
             {
                 PdfRenderer renderer = new PdfRenderer(fs);
                 pages.Render(renderer);
+            }
+
+            using (FileStream fs = new FileStream(Path.Combine("out", name + ".xlsx"), FileMode.Create))
+            {
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XlsxRenderer renderer = new XlsxRenderer(workbook);
+                renderer.NewSheet("sheet_name");
+                pages.Render(renderer);
+                workbook.Write(fs);
             }
         }
     }

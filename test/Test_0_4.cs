@@ -4,6 +4,9 @@ using jp.co.systembase.report.data;
 using jp.co.systembase.report.renderer;
 using jp.co.systembase.report.renderer.pdf;
 using jp.co.systembase.report.renderer.pdf.imageloader;
+using jp.co.systembase.report.renderer.xlsx;
+using jp.co.systembase.report.renderer.xlsx.imageloader;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Drawing;
 using System.IO;
@@ -42,6 +45,16 @@ namespace test
                 PdfRenderer renderer = new PdfRenderer(fs);
                 renderer.ImageLoaderMap.Add("image", new PdfImageLoader(_GetImageMap()));
                 pages.Render(renderer);
+            }
+
+            using (FileStream fs = new FileStream(Path.Combine("out", name + ".xlsx"), FileMode.Create))
+            {
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XlsxRenderer renderer = new XlsxRenderer(workbook);
+                renderer.NewSheet("sheet_name");
+                renderer.ImageLoaderMap.Add("image", new XlsxImageLoader(_GetImageMap()));                
+                pages.Render(renderer);
+                workbook.Write(fs);
             }
         }
 

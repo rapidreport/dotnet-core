@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>jp.co.systembase.report.renderer.xlsx</RootNamespace>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>systembase.report.renderer.xlsx</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>renderer.xlsx.snk</AssemblyOriginatorKeyFile>
+    <PackageId>jp.co.systembase.report.renderer.xlsx</PackageId>
+    <Version>5.11</Version>
+    <Authors>systembase</Authors>
+    <Product>jp.co.systembase.report.renderer.xlsx</Product>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="ZXing.Net" Version="0.16.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\report\report.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="systembase.barcode">
+      <HintPath>..\dll\systembase.barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI">
+      <HintPath>..\dll\systembase.NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OOXML">
+      <HintPath>..\dll\systembase.NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OpenXml4Net">
+      <HintPath>..\dll\systembase.NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="systembase.NPOI.OpenXmlFormats">
+      <HintPath>..\dll\systembase.NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
