@@ -1,5 +1,5 @@
 ﻿Imports NPOI.SS.UserModel
-Imports NPOI.XSSF.UserModel
+Imports System.Text
 
 Imports ZXing
 Imports ZXing.Common
@@ -7,14 +7,16 @@ Imports ZXing.QrCode
 Imports ZXing.QrCode.Internal
 
 Imports jp.co.systembase.barcode
-Imports jp.co.systembase.barcode.Barcode
 Imports jp.co.systembase.report.component
-Imports jp.co.systembase.report.renderer
 Imports jp.co.systembase.report.renderer.xlsx.component
 
 Namespace elementrenderer
     Public Class BarcodeRenderer
         Implements IElementRenderer
+
+        Shared Sub New()
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
+        End Sub
 
         Public Sub Collect( _
           renderer As XlsxRenderer, _

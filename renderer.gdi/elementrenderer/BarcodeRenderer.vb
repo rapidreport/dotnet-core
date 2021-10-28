@@ -4,13 +4,17 @@ Imports ZXing.QrCode
 
 Imports jp.co.systembase.barcode
 Imports jp.co.systembase.report.component
-Imports jp.co.systembase.report.renderer
 Imports ZXing.QrCode.Internal
+Imports System.Text
 
 Namespace elementrenderer
 
     Public Class BarcodeRenderer
         Implements IElementRenderer
+
+        Shared Sub New()
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
+        End Sub
 
         Public Sub Render( _
           env As RenderingEnv, _
