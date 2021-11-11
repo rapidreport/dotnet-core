@@ -3,6 +3,7 @@ using System.IO;
 using jp.co.systembase.json;
 using jp.co.systembase.report;
 using jp.co.systembase.report.data;
+using jp.co.systembase.report.renderer.gdi;
 using jp.co.systembase.report.renderer.pdf;
 using jp.co.systembase.report.renderer.xlsx;
 using NPOI.XSSF.UserModel;
@@ -39,6 +40,12 @@ namespace test
                 renderer.NewSheet("sheet_name");
                 pages.Render(renderer);
                 workbook.Write(fs);
+            }
+
+            {
+                var printer = new Printer(pages);
+                var preview = new FmPrintPreview(printer);
+                preview.ShowDialog();
             }
         }
     }
