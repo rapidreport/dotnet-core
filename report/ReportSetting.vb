@@ -76,6 +76,7 @@ Public Class ReportSetting
         Me.OperatorMap.Add("abs", New AbsOperator)
         Me.OperatorMap.Add("max", New MaxOperator)
         Me.OperatorMap.Add("min", New MinOperator)
+        Me.OperatorMap.Add("num", New NumOperator)
         Me.OperatorMap.Add("year", New YearOperator)
         Me.OperatorMap.Add("month", New MonthOperator)
         Me.OperatorMap.Add("day", New DayOperator)

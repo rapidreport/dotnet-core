@@ -57,6 +57,9 @@
     <None Update="rrpt\test_5_10_backslash.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="rrpt\test_5_12_num.rrpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="rrpt\test_5_7_charspacing_ng.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
