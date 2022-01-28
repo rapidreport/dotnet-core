@@ -27,6 +27,7 @@ namespace test
             Tests.Add(new Test_5_9_WeekdayOperator());
             Tests.Add(new Test_5_10_BackSlash());
             Tests.Add(new Test_5_12_Num());
+            Tests.Add(new Test_5_12_TextMock());
 
             Application.Run(new FmTest());
         }
