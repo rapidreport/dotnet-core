@@ -28,6 +28,7 @@ namespace test
             Tests.Add(new Test_5_10_BackSlash());
             Tests.Add(new Test_5_12_Num());
             Tests.Add(new Test_5_12_TextMock());
+            Tests.Add(new Test_5_12_SortKeys());
 
             Application.Run(new FmTest());
         }
