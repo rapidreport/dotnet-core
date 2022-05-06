@@ -12,7 +12,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>renderer.pdf.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>5.8.0.0</AssemblyVersion>
-    <FileVersion>5.12.0.0</FileVersion>
+    <FileVersion>5.13.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

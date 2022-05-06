@@ -13,6 +13,7 @@
     <AssemblyOriginatorKeyFile>report.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>5.12.0.0</AssemblyVersion>
     <OptionCompare>Text</OptionCompare>
+    <FileVersion>5.13.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
