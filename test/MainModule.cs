@@ -31,6 +31,7 @@ namespace test
             Tests.Add(new Test_5_12_SortKeys());
             Tests.Add(new Test_5_13_Unit());
             Tests.Add(new Test_5_14_PdfBarcode());
+            Tests.Add(new Test_5_14_Color());
 
             Application.Run(new FmTest());
         }
