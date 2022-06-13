@@ -63,10 +63,10 @@ Public Class ReportPage
         Me._Render_aux(renderer, pages, scanner, True)
     End Sub
 
-    Private Sub _Render_aux( _
-      renderer As IRenderer, _
-      pages As ReportPages, _
-      scanner As RenderingScanner, _
+    Private Sub _Render_aux(
+      renderer As IRenderer,
+      pages As ReportPages,
+      scanner As RenderingScanner,
       subPage As Boolean)
         Me.ToggleValue = False
         Dim elementsMap As New Dictionary(Of ContentInstance, ElementDesigns)

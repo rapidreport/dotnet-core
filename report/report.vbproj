@@ -27,7 +27,6 @@
     <Folder Include="elementpreprocessor\" />
     <Folder Include="expression\" />
     <Folder Include="method\" />
-    <Folder Include="operator\" />
     <Folder Include="renderer\" />
     <Folder Include="scanner\" />
     <Folder Include="search\searchobject\" />

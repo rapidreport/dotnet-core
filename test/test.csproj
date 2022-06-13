@@ -72,6 +72,9 @@
     <None Update="rrpt\test_5_14_color.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="rrpt\test_5_14_date.rrpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="rrpt\test_5_14_pdfbarcode.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
