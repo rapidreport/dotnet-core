@@ -6,14 +6,14 @@
     <PackageId>jp.co.systembase.report</PackageId>
     <Authors>systembase</Authors>
     <Company>systembase</Company>
-    <Version>5.12</Version>
+    <Version>5.14</Version>
     <AssemblyName>systembase.report</AssemblyName>
     <Product>jp.co.systembase.report</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>report.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>5.12.0.0</AssemblyVersion>
     <OptionCompare>Text</OptionCompare>
-    <FileVersion>5.13.0.0</FileVersion>
+    <FileVersion>5.14.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
