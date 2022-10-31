@@ -7,10 +7,11 @@ using jp.co.systembase.report.renderer.pdf;
 using jp.co.systembase.report.renderer.pdf.imageloader;
 using jp.co.systembase.report.renderer.xlsx;
 using jp.co.systembase.report.renderer.xlsx.imageloader;
-using NPOI.XSSF.UserModel;
+using jp.co.systembase.NPOI.XSSF.UserModel;
 using System;
 using System.Drawing;
 using System.IO;
+using jp.co.systembase.report.renderer.gdi.imageloader;
 
 namespace test
 {
@@ -53,13 +54,14 @@ namespace test
                 XSSFWorkbook workbook = new XSSFWorkbook();
                 XlsxRenderer renderer = new XlsxRenderer(workbook);
                 renderer.NewSheet("sheet_name");
-                renderer.ImageLoaderMap.Add("image", new XlsxImageLoader(_GetImageMap()));                
+                renderer.ImageLoaderMap.Add("image", new XlsxImageLoader(_GetImageMap()));
                 pages.Render(renderer);
                 workbook.Write(fs);
             }
 
             {
                 var printer = new Printer(pages);
+                printer.ImageLoaderMap.Add("image", new GdiImageLoader(_GetImageMap()));
                 var preview = new FmPrintPreview(printer);
                 preview.ShowDialog();
             }

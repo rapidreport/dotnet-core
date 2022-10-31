@@ -6,7 +6,7 @@ using jp.co.systembase.report.renderer.gdi;
 using jp.co.systembase.report.renderer.pdf;
 using jp.co.systembase.report.renderer.xlsx;
 using Newtonsoft.Json;
-using NPOI.XSSF.UserModel;
+using jp.co.systembase.NPOI.XSSF.UserModel;
 using System;
 using System.Collections;
 using System.Drawing.Printing;

@@ -1,4 +1,4 @@
-﻿Imports NPOI.SS.UserModel
+﻿Imports jp.co.systembase.NPOI.SS.UserModel
 Imports System.Text
 
 Imports ZXing

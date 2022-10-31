@@ -6,7 +6,7 @@ using jp.co.systembase.report.data;
 using jp.co.systembase.report.renderer.gdi;
 using jp.co.systembase.report.renderer.pdf;
 using jp.co.systembase.report.renderer.xlsx;
-using NPOI.XSSF.UserModel;
+using jp.co.systembase.NPOI.XSSF.UserModel;
 
 namespace test
 {
