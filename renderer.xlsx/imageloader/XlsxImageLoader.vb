@@ -1,9 +1,5 @@
 ﻿Imports System.Drawing
 
-Imports NPOI.XSSF.UserModel
-
-Imports jp.co.systembase.report.renderer
-
 Namespace imageloader
     Public Class XlsxImageLoader
         Implements IXlsxImageLoader
