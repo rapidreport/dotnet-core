@@ -12,11 +12,11 @@ Namespace elementrenderer
           design As ElementDesign, _
           data As Object) Implements IElementRenderer.Render
             If Not design.IsNull("rect") Then
-                env.Setting.GetElementRenderer("rect").Render( _
-                    env, _
-                    reportDesign, _
-                    region, _
-                    design.Child("rect"), _
+                env.Printer.Setting.GetElementRenderer("rect").Render(
+                    env,
+                    reportDesign,
+                    region,
+                    design.Child("rect"),
                     Nothing)
             End If
             Dim text As String

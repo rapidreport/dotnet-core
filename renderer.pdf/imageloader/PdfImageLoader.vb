@@ -1,8 +1,4 @@
-﻿Imports System.Drawing
-Imports iTextSharp.text
-Imports jp.co.systembase.report.renderer
-
-Namespace imageloader
+﻿Namespace imageloader
 
     Public Class PdfImageLoader
         Implements IPdfImageLoader

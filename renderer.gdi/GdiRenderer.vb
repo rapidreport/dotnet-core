@@ -27,7 +27,7 @@ Public Class GdiRenderer
       region As Region, _
       design As ElementDesign, _
       data As Object) Implements IRenderer.RenderElement
-        Me.Env.Setting.GetElementRenderer(design.Get("type")) _
+        Me.Env.Printer.Setting.GetElementRenderer(design.Get("type")) _
           .Render(Me.Env, reportDesign, region, design, data)
     End Sub
 

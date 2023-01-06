@@ -22,7 +22,7 @@ Public Class GdiText
       text As String)
         Me.Graphics = env.Graphics
         Me.Region = region.ToPointScale(reportDesign)
-        Me.Setting = env.Setting
+        Me.Setting = env.Printer.Setting
         Me.TextDesign = New TextDesign(reportDesign, design)
         Me.Text = text
         If Not Report.Compatibility._4_37_Typeset Then

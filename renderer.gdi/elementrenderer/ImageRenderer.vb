@@ -16,20 +16,19 @@ Namespace elementrenderer
             If Not env.InDesigner Then
                 If Not design.IsNull("key") And data IsNot Nothing Then
                     Dim key As String = design.Get("key")
-                    If env.ImageLoaderMap.ContainsKey(key) Then
-                        img = env.ImageLoaderMap(key).GetImage(data)
+                    If env.Printer.ImageLoaderMap.ContainsKey(key) Then
+                        img = env.Printer.ImageLoaderMap(key).GetImage(data)
                     End If
                 End If
             End If
             If img Is Nothing Then
-                img = Image.FromStream(New MemoryStream(reportDesign.GetImage(design.Base, "image")))
+                img = env.GetImage(reportDesign, design.Base, "image") 'Image.FromStream(New MemoryStream(reportDesign.GetImage(design.Base, "image")))
+            End If
+            If img Is Nothing And env.InDesigner Then
+                img = My.Resources.MockImage
             End If
             If img Is Nothing Then
-                If env.InDesigner Then
-                    img = My.Resources.MockImage
-                Else
-                    Exit Sub
-                End If
+                Exit Sub
             End If
             Dim _region As Region = region.ToPointScale(reportDesign)
             Dim g As Graphics = env.Graphics

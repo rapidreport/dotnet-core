@@ -8,6 +8,7 @@ Public Class Printer
 
     Public Setting As GdiRendererSetting
     Public ImageLoaderMap As New Dictionary(Of String, IGdiImageLoader)
+    Public ImageCache As Dictionary(Of Hashtable, Dictionary(Of String, Image))
     Public PageIndex As Integer = 0
     Public PrintDialog As New PrintDialog
     Public WithEvents PrintDocument As New PrintDocument
@@ -53,6 +54,7 @@ Public Class Printer
                 Throw New RenderException("ページがありません")
             End If
             Me._Pages = value
+            Me.ImageCache = New Dictionary(Of Hashtable, Dictionary(Of String, Image))
             Me.Pages.SetUpCountingPages()
             With Me.PrintDialog
                 .PrinterSettings.FromPage = 1

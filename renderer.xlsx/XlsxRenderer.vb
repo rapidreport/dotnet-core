@@ -136,9 +136,7 @@ Public Class XlsxRenderer
             Return -1
         End If
         If Not Me.ImagePool.ContainsKey(image) Then
-
-            Dim index As Integer = Me.Workbook.AddPicture(image, NPOI.SS.UserModel.PictureType.PNG)
-            Me.ImagePool.Add(image, index)
+            Me.ImagePool.Add(image, Me.Workbook.AddPicture(image, NPOI.SS.UserModel.PictureType.PNG))
         End If
         Return Me.ImagePool(image)
     End Function
