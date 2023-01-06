@@ -1,8 +1,4 @@
-﻿Imports System.IO
-Imports System.Drawing
-
-
-Imports jp.co.systembase.report.component
+﻿Imports jp.co.systembase.report.component
 
 Public Class ReportDesign
 
@@ -26,7 +22,7 @@ Public Class ReportDesign
     Public Memo As String = Nothing
     Public MonospacedFontsDesign As MonospacedFontsDesign = Nothing
 
-    Private imageCache As New Dictionary(Of Hashtable, Dictionary(Of String, Image))
+    Private imageCache As New Dictionary(Of Hashtable, Dictionary(Of String, Byte()))
 
     Public Sub New(desc As Hashtable)
         Me.New(desc, New ReportSetting)
@@ -109,28 +105,27 @@ Public Class ReportDesign
         Return Nothing
     End Function
 
-    Public Function GetImage(desc As Hashtable, key As String) As Image
-        If Not Me.ImageCache.ContainsKey(desc) OrElse Not Me.ImageCache(desc).ContainsKey(key) Then
+    Public Function GetImage(desc As Hashtable, key As String) As Byte()
+        If Not Me.imageCache.ContainsKey(desc) OrElse Not Me.imageCache(desc).ContainsKey(key) Then
             Me.CreateImageCache(desc, key)
         End If
-        Return Me.ImageCache(desc)(key)
+        Return Me.imageCache(desc)(key)
     End Function
 
     Public Sub CreateImageCache(desc As Hashtable, key As String)
-        Dim img As Image = Nothing
+        Dim img As Byte() = Nothing
         If desc.ContainsKey(key) Then
             Try
-                Dim imageBytes() As Byte = Convert.FromBase64String(desc(key))
-                img = Image.FromStream(New MemoryStream(imageBytes, 0, imageBytes.Length), True)
+                img = Convert.FromBase64String(desc(key))
             Catch ex As Exception
             End Try
         End If
         Me.CreateImageCache(desc, key, img)
     End Sub
 
-    Public Sub CreateImageCache(desc As Hashtable, key As String, image As Image)
+    Public Sub CreateImageCache(desc As Hashtable, key As String, image As Byte())
         If Not Me.imageCache.ContainsKey(desc) Then
-            Me.imageCache.Add(desc, New Dictionary(Of String, Image))
+            Me.imageCache.Add(desc, New Dictionary(Of String, Byte()))
         End If
         If Me.imageCache(desc).ContainsKey(key) Then
             Me.imageCache(desc).Remove(key)

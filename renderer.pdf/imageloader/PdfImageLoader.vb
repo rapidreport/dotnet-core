@@ -1,4 +1,5 @@
-﻿Imports iTextSharp.text
+﻿Imports System.Drawing
+Imports iTextSharp.text
 Imports jp.co.systembase.report.renderer
 
 Namespace imageloader
@@ -19,11 +20,11 @@ Namespace imageloader
         Public Sub New(imageMap As ImageMap)
             Me.ImageMap = New PdfImageMap
             For Each key As Object In imageMap.Keys
-                Me.ImageMap.Add(key, Image.GetInstance(imageMap(key), imageMap(key).RawFormat))
+                Me.ImageMap.Add(key, iTextSharp.text.Image.GetInstance(imageMap(key)))
             Next
         End Sub
 
-        Public Function GetImage(param As Object) As Image Implements IPdfImageLoader.GetImage
+        Public Function GetImage(param As Object) As iTextSharp.text.Image Implements IPdfImageLoader.GetImage
             Return Me.ImageMap(param)
         End Function
 

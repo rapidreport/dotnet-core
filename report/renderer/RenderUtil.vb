@@ -1,9 +1,5 @@
 ﻿Imports System.Drawing
-Imports System.Text
-Imports System.Text.RegularExpressions
-
 Imports jp.co.systembase.report.component
-Imports jp.co.systembase.report.textformatter
 
 Namespace renderer
 

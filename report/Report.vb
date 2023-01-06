@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Imports jp.co.systembase.report.component
+﻿Imports jp.co.systembase.report.component
 Imports jp.co.systembase.report.customizer
 Imports jp.co.systembase.report.data
 Imports jp.co.systembase.report.data.internal
@@ -79,7 +77,6 @@ Public Class Report
         Public Shared _4_37_ImagePixelScale As Boolean = False
         Public Shared _4_37_Typeset As Boolean = False
         Public Shared _5_5_VAlign As Boolean = False
-        Public Shared _5_13_PdfBarcode As Boolean = False
     End Class
 
     Public Class ContextClass

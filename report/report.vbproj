@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <RootNamespace>jp.co.systembase.report</RootNamespace>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>jp.co.systembase.report</PackageId>
     <Authors>systembase</Authors>
     <Company>systembase</Company>
-    <Version>5.14</Version>
+    <Version>5.15.0</Version>
     <AssemblyName>systembase.report</AssemblyName>
     <Product>jp.co.systembase.report</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>report.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>5.12.0.0</AssemblyVersion>
+    <AssemblyVersion>5.15.0.0</AssemblyVersion>
     <OptionCompare>Text</OptionCompare>
-    <FileVersion>5.14.0.0</FileVersion>
+    <FileVersion>5.15.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -31,10 +31,6 @@
     <Folder Include="scanner\" />
     <Folder Include="search\searchobject\" />
     <Folder Include="textformatter\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
   </ItemGroup>
 
 </Project>

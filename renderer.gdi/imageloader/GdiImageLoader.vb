@@ -1,4 +1,5 @@
-﻿Imports jp.co.systembase.report.renderer
+﻿Imports System.IO
+Imports jp.co.systembase.report.renderer
 
 Namespace imageloader
 
@@ -8,7 +9,7 @@ Namespace imageloader
         Public ImageMap As ImageMap
 
         Public Sub New()
-            Me.new(New ImageMap)
+            Me.New(New ImageMap)
         End Sub
 
         Public Sub New(imageMap As ImageMap)
@@ -16,7 +17,7 @@ Namespace imageloader
         End Sub
 
         Public Function GetImage(param As Object) As Image Implements IGdiImageLoader.GetImage
-            Return Me.ImageMap(param)
+            Return Image.FromStream(New MemoryStream(Me.ImageMap(param)))
         End Function
 
     End Class

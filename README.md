@@ -9,7 +9,7 @@ RapidReport
 
 動作環境
 -------
-.NET Core 3.0 以上（Visual Studio 2019 プロジェクト）
+.NET Core 3.1 以上（Visual Studio 2019 プロジェクト）
 
 ライセンス
 -------

@@ -100,9 +100,9 @@ Public Class PdfRenderer
             Me.imageCache(desc).Remove(key)
         End If
         If desc.ContainsKey(key) Then
-            Dim img As System.Drawing.Image = reportDesign.GetImage(desc, key)
+            Dim img As Byte() = reportDesign.GetImage(desc, key)
             If img IsNot Nothing Then
-                Me.imageCache(desc).Add(key, Image.GetInstance(img, img.RawFormat))
+                Me.imageCache(desc).Add(key, Image.GetInstance(img))
             Else
                 Me.imageCache(desc).Add(key, Nothing)
             End If

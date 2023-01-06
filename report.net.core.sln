@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "json", "json\json.vbproj", "{A031DA30-F8F5-40E6-8552-2099BE489E1E}"
 EndProject
@@ -13,7 +13,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "renderer.pdf", "renderer.pd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{4BC3A804-CA11-4E84-80DA-3F158DB06C62}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "renderer.xlsx", "renderer.xlsx\renderer.xlsx.vbproj", "{3782E28D-BDAD-4E5D-A3CA-3EA810924C84}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "renderer.xlsx", "renderer.xlsx\renderer.xlsx.vbproj", "{3782E28D-BDAD-4E5D-A3CA-3EA810924C84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

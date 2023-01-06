@@ -24,11 +24,11 @@ namespace test
 
         private ImageMap _GetImageMap()
         {
-            var ret = new ImageMap();
-            ret.Add("bmp", Image.FromFile("./img/logo.bmp"));
-            ret.Add("gif", Image.FromFile("./img/logo.gif"));
-            ret.Add("jpg", Image.FromFile("./img/logo.jpg"));
-            ret.Add("png", Image.FromFile("./img/logo.png"));
+            var ret = new ImageMap();            
+            ret.Add("bmp", File.ReadAllBytes("./img/logo.bmp"));
+            ret.Add("gif", File.ReadAllBytes("./img/logo.gif"));
+            ret.Add("jpg", File.ReadAllBytes("./img/logo.jpg"));
+            ret.Add("png", File.ReadAllBytes("./img/logo.png"));
             return ret;
         }
 

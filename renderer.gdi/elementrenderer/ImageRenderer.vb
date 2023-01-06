@@ -1,15 +1,16 @@
-﻿Imports jp.co.systembase.report.component
+﻿Imports System.IO
+Imports jp.co.systembase.report.component
 
 Namespace elementrenderer
 
     Public Class ImageRenderer
         Implements IElementRenderer
 
-        Public Sub Render( _
-          env As RenderingEnv, _
-          reportDesign As ReportDesign, _
-          region As Region, _
-          design As ElementDesign, _
+        Public Sub Render(
+          env As RenderingEnv,
+          reportDesign As ReportDesign,
+          region As Region,
+          design As ElementDesign,
           data As Object) Implements IElementRenderer.Render
             Dim img As Image = Nothing
             If Not env.InDesigner Then
@@ -21,7 +22,7 @@ Namespace elementrenderer
                 End If
             End If
             If img Is Nothing Then
-                img = reportDesign.GetImage(design.Base, "image")
+                img = Image.FromStream(New MemoryStream(reportDesign.GetImage(design.Base, "image")))
             End If
             If img Is Nothing Then
                 If env.InDesigner Then

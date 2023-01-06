@@ -6,7 +6,7 @@ Namespace imageloader
 
         Public ImageMap As ImageMap
 
-        Private pool As New Dictionary(Of Image, Integer)
+        Private pool As New Dictionary(Of Byte(), Integer)
 
         Public Sub New()
             Me.New(New ImageMap)
@@ -16,7 +16,7 @@ Namespace imageloader
             Me.ImageMap = imageMap
         End Sub
 
-        Public Overridable Function GetImage(param As Object) As Image Implements IXlsxImageLoader.GetImage
+        Public Overridable Function GetImage(param As Object) As Byte() Implements IXlsxImageLoader.GetImage
             Return Me.ImageMap(param)
         End Function
 

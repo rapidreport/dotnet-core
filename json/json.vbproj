@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>jp.co.systembase.json</RootNamespace>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>systembase.json</AssemblyName>
     <PackageId>jp.co.systembase.json</PackageId>
     <Authors>systembase</Authors>
@@ -10,6 +10,9 @@
     <Product>jp.co.systembase.json</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>json.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

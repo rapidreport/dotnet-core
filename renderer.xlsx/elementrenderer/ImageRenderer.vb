@@ -15,7 +15,7 @@ Namespace elementrenderer
           design As ElementDesign, _
           data As Object) Implements IElementRenderer.Collect
             Dim _region As Region = region.ToPointScale(reportDesign)
-            Dim image As System.Drawing.Image = Nothing
+            Dim image As Byte() = Nothing
             If Not design.IsNull("key") AndAlso data IsNot Nothing Then
                 Dim key As String = design.Get("key")
                 If renderer.ImageLoaderMap.ContainsKey(key) Then
@@ -33,8 +33,8 @@ Namespace elementrenderer
 
         Public Class ImageShapeRenderer
             Implements IShapeRenderer
-            Public Image As System.Drawing.Image
-            Public Sub New(image As System.Drawing.Image)
+            Public Image As Byte()
+            Public Sub New(image As Byte())
                 Me.Image = image
             End Sub
             Public Sub Render(page As Page, shape As Shape) Implements IShapeRenderer.Render

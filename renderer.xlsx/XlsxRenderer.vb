@@ -17,7 +17,7 @@ Public Class XlsxRenderer
     Public Pages As List(Of Page) = Nothing
     Public CurrentPage As Page = Nothing
 
-    Public ImagePool As Dictionary(Of System.Drawing.Image, Integer)
+    Public ImagePool As Dictionary(Of Byte(), Integer)
     Public CellStylePool As CellStylePool
     Public FontPool As FontPool
 
@@ -40,7 +40,7 @@ Public Class XlsxRenderer
         Me.CurrentPage = Nothing
         Me.ImageLoaderMap = New Dictionary(Of Object, IXlsxImageLoader)
         Me.Sheet.CreateDrawingPatriarch()
-        Me.ImagePool = New Dictionary(Of System.Drawing.Image, Integer)
+        Me.ImagePool = New Dictionary(Of Byte(), Integer)
     End Sub
 
     Public Sub BeginReport(reportDesign As ReportDesign) Implements IRenderer.BeginReport
@@ -131,15 +131,13 @@ Public Class XlsxRenderer
           .Collect(Me, reportDesign, region, design, data)
     End Sub
 
-    Public Function GetImageIndex(image As System.Drawing.Image) As Integer
+    Public Function GetImageIndex(image As Byte()) As Integer
         If image Is Nothing Then
             Return -1
         End If
         If Not Me.ImagePool.ContainsKey(image) Then
 
-            Dim index As Integer = Me.Workbook.AddPicture(
-                  (New System.Drawing.ImageConverter).ConvertTo(image, GetType(Byte())),
-                  NPOI.SS.UserModel.PictureType.PNG)
+            Dim index As Integer = Me.Workbook.AddPicture(image, NPOI.SS.UserModel.PictureType.PNG)
             Me.ImagePool.Add(image, index)
         End If
         Return Me.ImagePool(image)
