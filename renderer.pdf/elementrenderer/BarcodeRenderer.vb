@@ -17,7 +17,7 @@ Namespace elementrenderer
         Protected Const MARGIN_Y = 2.0F
         Protected Const SCALE = 10.0F
 
-        Public Sub Render(
+        Public Overridable Sub Render(
           renderer As PdfRenderer,
           reportDesign As ReportDesign,
           region As Region,

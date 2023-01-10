@@ -21,7 +21,7 @@ Public Class GdiText
       design As ElementDesign,
       text As String)
         Me.Graphics = env.Graphics
-        Me.Region = region.ToPointScale(reportDesign)
+        Me.Region = region
         Me.Setting = env.Printer.Setting
         Me.TextDesign = New TextDesign(reportDesign, design)
         Me.Text = text

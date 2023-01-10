@@ -24,7 +24,7 @@ Namespace elementrenderer
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
         End Sub
 
-        Public Sub Collect(
+        Public Overridable Sub Collect(
           renderer As XlsxRenderer,
           reportDesign As ReportDesign,
           region As Region,
@@ -46,21 +46,21 @@ Namespace elementrenderer
             Implements IShapeRenderer
             Public Code As String
             Public Design As ElementDesign
+
             Public Sub New(design As ElementDesign, code As String)
                 Me.Code = code
                 Me.Design = design
             End Sub
-            Public Sub Render(page As Page, shape As Shape) Implements IShapeRenderer.Render
-                If Me.Code Is Nothing Then
+
+            Public Overridable Sub Render(page As Page, shape As Shape) Implements IShapeRenderer.Render
+                If Code Is Nothing Then
                     Exit Sub
                 End If
                 If shape.Region.GetWidth = 0 OrElse shape.Region.GetHeight = 0 Then
                     Exit Sub
                 End If
-                Dim w As Integer = CType(shape.Region.GetWidth * SCALE, Integer)
-                Dim h As Integer = CType(shape.Region.GetHeight * SCALE, Integer)
-                Using bmp As New SKBitmap(w, h)
-                    _RenderBarcode(bmp, _CreateBarcodeShape(_GetRegion(w, h)))
+                Using bmp As New SKBitmap(shape.Region.GetWidth * SCALE, shape.Region.GetHeight * SCALE)
+                    _RenderBarcode(bmp, _CreateBarcodeShape(bmp.Width, bmp.Height))
                     Dim p As IDrawing = page.Renderer.Sheet.CreateDrawingPatriarch
                     Dim index As Integer = page.Renderer.Workbook.AddPicture(
                         SKImage.FromBitmap(bmp).Encode(SKEncodedImageFormat.Png, 100).ToArray(),
@@ -69,23 +69,16 @@ Namespace elementrenderer
                 End Using
             End Sub
 
-            Protected Overridable Function _GetRegion(w As Integer, h As Integer) As Region
-                Return New Region() With {
-                    .Left = MARGIN_X * SCALE,
-                    .Top = MARGIN_Y * SCALE,
-                    .Right = w - MARGIN_X * SCALE,
-                    .Bottom = h - MARGIN_Y * SCALE
-                }
-            End Function
-
-            Protected Overridable Function _CreateBarcodeShape(region As Region) As barcode.Barcode.Shape
+            Protected Overridable Function _CreateBarcodeShape(width As Single, height As Single) As barcode.Barcode.Shape
+                Const MX = MARGIN_X * SCALE
+                Const MY = MARGIN_Y * SCALE
                 Select Case Design.Get("barcode_type")
                     Case "ean8"
                         Dim barcode As New Ean8
                         If Design.Get("without_text") Then
                             barcode.WithText = False
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "code39"
                         Dim barcode As New Code39
                         If Design.Get("without_text") Then
@@ -94,7 +87,7 @@ Namespace elementrenderer
                         If Design.Get("generate_checksum") Then
                             barcode.GenerateCheckSum = True
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "codabar"
                         Dim barcode As New Codabar
                         If Design.Get("without_text") Then
@@ -118,7 +111,7 @@ Namespace elementrenderer
                         If Design.Get("codabar_startstop_show") Then
                             barcode.WithStartStopText = True
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, startCode & Code & stopCode)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, startCode & Code & stopCode)
                     Case "itf"
                         Dim barcode As New Itf
                         If Design.Get("without_text") Then
@@ -127,13 +120,13 @@ Namespace elementrenderer
                         If Design.Get("generate_checksum") Then
                             barcode.GenerateCheckSum = True
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "code128"
                         Dim barcode As New Code128
                         If Design.Get("without_text") Then
                             barcode.WithText = False
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "gs1_128"
                         Dim barcode As New Gs1_128
                         If Design.Get("without_text") Then
@@ -142,10 +135,10 @@ Namespace elementrenderer
                         If Design.Get("gs1_conveni") Then
                             barcode.ConveniFormat = True
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "yubin"
                         Dim barcode As New Yubin
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                     Case "qrcode"
                         Dim w As New QRCodeWriter
                         Dim h As New Dictionary(Of EncodeHintType, Object)
@@ -172,12 +165,12 @@ Namespace elementrenderer
                         Dim ret As New barcode.Barcode.Shape
                         Dim bm As BitMatrix
                         bm = w.encode(Code, BarcodeFormat.QR_CODE, 0, 0, h)
-                        Dim mw As Single = region.GetWidth / bm.Width
-                        Dim mh As Single = region.GetHeight / bm.Height
+                        Dim mw As Single = width / bm.Width
+                        Dim mh As Single = height / bm.Height
                         For y As Integer = 0 To bm.Height - 1
                             For x As Integer = 0 To bm.Width - 1
                                 If bm(x, y) Then
-                                    ret.Bars.Add(New barcode.Barcode.Shape.Bar(region.Left + mw * x, region.Top + mh * y, mw, mh))
+                                    ret.Bars.Add(New barcode.Barcode.Shape.Bar(mw * x, mh * y, mw, mh))
                                 End If
                             Next
                         Next
@@ -187,7 +180,7 @@ Namespace elementrenderer
                         If Design.Get("without_text") Then
                             barcode.WithText = False
                         End If
-                        Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, Code)
+                        Return barcode.CreateShape(MX, MY, width - MX * 2, height - MY * 2, Code)
                 End Select
             End Function
 
@@ -225,6 +218,7 @@ Namespace elementrenderer
                     End If
                 End Using
             End Sub
+
         End Class
 
     End Class

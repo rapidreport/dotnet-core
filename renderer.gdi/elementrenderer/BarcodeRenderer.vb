@@ -20,7 +20,7 @@ Namespace elementrenderer
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
         End Sub
 
-        Public Sub Render(
+        Public Overridable Sub Render(
           env As RenderingEnv,
           reportDesign As ReportDesign,
           region As Region,
