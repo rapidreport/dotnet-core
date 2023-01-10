@@ -23,12 +23,23 @@ Namespace elementrenderer
           region As Region,
           design As ElementDesign,
           data As Object) Implements IElementRenderer.Render
-            Dim code As String = _GetCode(reportDesign, design, data)
+            Dim code = _GetCode(reportDesign, design, data)
             If code Is Nothing Then
                 Exit Sub
             End If
             Try
-                _RenderBarcode(renderer, _CreateBarcodeShape(design, _GetRegion(reportDesign, region), code))
+                Dim _region = region.ToPointScale(reportDesign)
+                Dim image = _GetImage(renderer, _region, _CreateBarcodeShape(_region, design, code))
+                If image IsNot Nothing Then
+                    If Not Report.Compatibility._5_13_PdfBarcode Then
+                        image.ScaleAbsolute(_region.GetWidth - 4, _region.GetHeight - 4)
+                        image.SetAbsolutePosition(renderer.Trans.X(_region.Left + 2), renderer.Trans.Y(_region.Bottom - 2))
+                    Else
+                        image.ScaleAbsolute(_region.GetWidth - 2, _region.GetHeight - 2)
+                        image.SetAbsolutePosition(renderer.Trans.X(_region.Left + 1), renderer.Trans.Y(_region.Bottom + 1))
+                    End If
+                    renderer.Writer.DirectContent.AddImage(image)
+                End If
             Catch ex As Exception
             End Try
         End Sub
@@ -37,18 +48,14 @@ Namespace elementrenderer
             Return RenderUtil.Format(reportDesign, design.Child("formatter"), data)
         End Function
 
-        Protected Overridable Function _GetRegion(reportDesign As ReportDesign, region As Region) As Region
-            Return New Region(region.ToPointScale(reportDesign), MARGIN_X, MARGIN_Y, MARGIN_X, MARGIN_Y)
-        End Function
-
-        Protected Overridable Function _CreateBarcodeShape(design As ElementDesign, region As Region, code As String) As barcode.Barcode.Shape
+        Protected Overridable Function _CreateBarcodeShape(region As Region, design As ElementDesign, code As String) As barcode.Barcode.Shape
             Select Case design.Get("barcode_type")
                 Case "ean8"
                     Dim barcode As New Ean8
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "code39"
                     Dim barcode As New Code39
                     If design.Get("without_text") Then
@@ -57,7 +64,7 @@ Namespace elementrenderer
                     If design.Get("generate_checksum") Then
                         barcode.GenerateCheckSum = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "codabar"
                     Dim barcode As New Codabar
                     If design.Get("without_text") Then
@@ -81,7 +88,7 @@ Namespace elementrenderer
                     If design.Get("codabar_startstop_show") Then
                         barcode.WithStartStopText = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, startCode & code & stopCode)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, startCode & code & stopCode)
                 Case "itf"
                     Dim barcode As New Itf
                     If design.Get("without_text") Then
@@ -90,13 +97,13 @@ Namespace elementrenderer
                     If design.Get("generate_checksum") Then
                         barcode.GenerateCheckSum = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "code128"
                     Dim barcode As New Code128
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "gs1_128"
                     Dim barcode As New Gs1_128
                     If design.Get("without_text") Then
@@ -105,10 +112,10 @@ Namespace elementrenderer
                     If design.Get("gs1_conveni") Then
                         barcode.ConveniFormat = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "yubin"
                     Dim barcode As New Yubin
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
                 Case "qrcode"
                     Dim w As New QRCodeWriter
                     Dim h As New Dictionary(Of EncodeHintType, Object)
@@ -133,14 +140,13 @@ Namespace elementrenderer
                     End If
                     h.Add(EncodeHintType.DISABLE_ECI, True)
                     Dim ret As New barcode.Barcode.Shape
-                    Dim bm As BitMatrix
-                    bm = w.encode(code, BarcodeFormat.QR_CODE, 0, 0, h)
+                    Dim bm = w.encode(code, BarcodeFormat.QR_CODE, 0, 0, h)
                     Dim mw As Single = region.GetWidth / bm.Width
                     Dim mh As Single = region.GetHeight / bm.Height
                     For y As Integer = 0 To bm.Height - 1
                         For x As Integer = 0 To bm.Width - 1
                             If bm(x, y) Then
-                                ret.Bars.Add(New barcode.Barcode.Shape.Bar(region.Left + mw * x, region.Top + mh * y, mw, mh))
+                                ret.Bars.Add(New barcode.Barcode.Shape.Bar(mw * x, mh * y, mw, mh))
                             End If
                         Next
                     Next
@@ -150,40 +156,36 @@ Namespace elementrenderer
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(0, 0, region.GetWidth, region.GetHeight, code)
             End Select
         End Function
 
-        Protected Overridable Sub _RenderBarcode(renderer As PdfRenderer, shape As barcode.Barcode.Shape)
+        Protected Overridable Function _GetImage(renderer As PdfRenderer, region As Region, shape As barcode.Barcode.Shape) As Image
             If shape Is Nothing Then
-                Exit Sub
+                Return Nothing
             End If
-            Dim cb = renderer.Writer.DirectContent
-            cb.SaveState()
-            Try
-                cb.SetColorFill(Color.BLACK)
-                For Each bar In shape.Bars
-                    cb.Rectangle(renderer.Trans.X(bar.X), renderer.Trans.Y(bar.Y), bar.W, -bar.H)
+            Dim tmp = renderer.Writer.DirectContent.CreateTemplate(region.GetWidth, region.GetHeight)
+            tmp.SetColorFill(Color.BLACK)
+            For Each bar In shape.Bars
+                tmp.Rectangle(bar.X, region.GetHeight - bar.Y, bar.W, -bar.H)
+            Next
+            tmp.Fill()
+            If shape.Texts.Count > 0 Then
+                tmp.BeginText()
+                Dim f = BaseFont.CreateFont("Helvetica", "winansi", False)
+                tmp.SetFontAndSize(f, shape.FontSize)
+                For Each t In shape.Texts
+                    If t.W > 0 Then
+                        tmp.SetTextMatrix(t.X + (t.W - f.GetWidthPoint(t.Text, shape.FontSize)) / 2, region.GetHeight - t.Y - shape.FontSize)
+                    Else
+                        tmp.SetTextMatrix(t.X + shape.FontSize * 0.2, region.GetHeight - t.Y - shape.FontSize)
+                    End If
+                    tmp.ShowText(t.Text)
                 Next
-                cb.Fill()
-                If shape.Texts.Count > 0 Then
-                    cb.BeginText()
-                    Dim f = BaseFont.CreateFont("Helvetica", "winansi", False)
-                    cb.SetFontAndSize(f, shape.FontSize)
-                    For Each t In shape.Texts
-                        If t.W > 0 Then
-                            cb.SetTextMatrix(renderer.Trans.X(t.X + (t.W - f.GetWidthPoint(t.Text, shape.FontSize)) / 2), renderer.Trans.Y(t.Y + shape.FontSize))
-                        Else
-                            cb.SetTextMatrix(renderer.Trans.X(t.X + shape.FontSize * 0.2), renderer.Trans.Y(t.Y + shape.FontSize))
-                        End If
-                        cb.ShowText(t.Text)
-                    Next
-                    cb.EndText()
-                End If
-            Finally
-                cb.RestoreState()
-            End Try
-        End Sub
+                tmp.EndText()
+            End If
+            Return Image.GetInstance(tmp)
+        End Function
 
     End Class
 

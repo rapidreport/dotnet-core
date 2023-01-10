@@ -8,11 +8,11 @@
     <PackageId>jp.co.systembase.report.renderer.gdi</PackageId>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>renderer.gdi.snk</AssemblyOriginatorKeyFile>
-    <Version>5.15.0</Version>
-    <AssemblyVersion>5.15.0.0</AssemblyVersion>
-    <FileVersion>5.15.0.0</FileVersion>
+    <Version>5.16.0.0</Version>
+    <AssemblyVersion>5.16.0.0</AssemblyVersion>
+    <FileVersion>5.16.0.0</FileVersion>
     <Authors>systembase</Authors>
-    <Company>systembase</Company>
+    <Company>$(Authors)</Company>
     <Product>jp.co.systembase.report.renderer.gdi</Product>
   </PropertyGroup>
 

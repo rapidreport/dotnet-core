@@ -51,7 +51,7 @@ Public Class PdfText
       design As ElementDesign,
       text As String)
         Me.Renderer = renderer
-        Me.Region = region.ToPointScale(reportDesign)
+        Me.Region = region
         Me.TextDesign = New TextDesign(reportDesign, design)
         Me.Text = text
         Me.ContentByte = Me.Renderer.Writer.DirectContent

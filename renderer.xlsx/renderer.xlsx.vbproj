@@ -7,11 +7,11 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>renderer.xlsx.snk</AssemblyOriginatorKeyFile>
     <PackageId>jp.co.systembase.report.renderer.xlsx</PackageId>
-    <Version>5.15.0</Version>
+    <Version>5.16.0.0</Version>
     <Authors>systembase</Authors>
     <Product>jp.co.systembase.report.renderer.xlsx</Product>
-    <FileVersion>5.15.0.0</FileVersion>
-    <AssemblyVersion>5.15.0.0</AssemblyVersion>
+    <FileVersion>5.16.0.0</FileVersion>
+    <AssemblyVersion>5.16.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

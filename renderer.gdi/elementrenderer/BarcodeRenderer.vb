@@ -26,32 +26,29 @@ Namespace elementrenderer
           region As Region,
           design As ElementDesign,
           data As Object) Implements IElementRenderer.Render
-            Dim code As String = _GetCode(reportDesign, design, data)
+            Dim code As String = _GetCode(env, reportDesign, design, data)
             If code Is Nothing Then
                 Exit Sub
             End If
             Try
-                _RenderBarcode(env.Graphics, _CreateBarcodeShape(design, _GetRegion(reportDesign, region), code))
+                _RenderBarcode(env.Graphics, _CreateBarcodeShape(design, region.ToPointScale(reportDesign), code))
             Catch ex As Exception
             End Try
         End Sub
 
-        Protected Overridable Function _GetCode(reportDesign As ReportDesign, design As ElementDesign, data As Object) As String
+        Protected Overridable Function _GetCode(env As RenderingEnv, reportDesign As ReportDesign, design As ElementDesign, data As Object) As String
             Return RenderUtil.Format(reportDesign, design.Child("formatter"), data)
         End Function
 
-        Protected Overridable Function _GetRegion(reportDesign As ReportDesign, region As Region) As Region
-            Return New Region(region.ToPointScale(reportDesign), MARGIN_X, MARGIN_Y, MARGIN_X, MARGIN_Y)
-        End Function
-
         Protected Overridable Function _CreateBarcodeShape(design As ElementDesign, region As Region, code As String) As barcode.Barcode.Shape
+            Dim r As New Region(region, MARGIN_X, MARGIN_Y, MARGIN_X, MARGIN_Y)
             Select Case design.Get("barcode_type")
                 Case "ean8"
                     Dim barcode As New Ean8
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "code39"
                     Dim barcode As New Code39
                     If design.Get("without_text") Then
@@ -60,7 +57,7 @@ Namespace elementrenderer
                     If design.Get("generate_checksum") Then
                         barcode.GenerateCheckSum = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "codabar"
                     Dim barcode As New Codabar
                     If design.Get("without_text") Then
@@ -84,7 +81,7 @@ Namespace elementrenderer
                     If design.Get("codabar_startstop_show") Then
                         barcode.WithStartStopText = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, startCode & code & stopCode)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, startCode & code & stopCode)
                 Case "itf"
                     Dim barcode As New Itf
                     If design.Get("without_text") Then
@@ -93,13 +90,13 @@ Namespace elementrenderer
                     If design.Get("generate_checksum") Then
                         barcode.GenerateCheckSum = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "code128"
                     Dim barcode As New Code128
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "gs1_128"
                     Dim barcode As New Gs1_128
                     If design.Get("without_text") Then
@@ -108,10 +105,10 @@ Namespace elementrenderer
                     If design.Get("gs1_conveni") Then
                         barcode.ConveniFormat = True
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "yubin"
                     Dim barcode As New Yubin
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
                 Case "qrcode"
                     Dim w As New QRCodeWriter
                     Dim h As New Dictionary(Of EncodeHintType, Object)
@@ -153,7 +150,7 @@ Namespace elementrenderer
                     If design.Get("without_text") Then
                         barcode.WithText = False
                     End If
-                    Return barcode.CreateShape(region.Left, region.Top, region.GetWidth, region.GetHeight, code)
+                    Return barcode.CreateShape(r.Left, r.Top, r.GetWidth, r.GetHeight, code)
             End Select
         End Function
 
