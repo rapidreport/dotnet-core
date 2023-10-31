@@ -104,4 +104,106 @@ Public Module Json
         Return ret
     End Function
 
+    Public Async Function WriteAsync(data As Hashtable, path As String) As Task
+        Using w As New StreamWriter(path)
+            Await WriteAsync(data, w)
+        End Using
+    End Function
+
+    Public Async Function WriteAsync(data As Hashtable, writer As TextWriter) As Task
+        Using w As New JsonTextWriter(writer)
+            Await WriteAsync(data, w)
+        End Using
+    End Function
+
+    Public Async Function WriteAsync(data As Hashtable, writer As JsonWriter) As Task
+        Await writeHashAsync(data, writer)
+    End Function
+
+    Public Async Function ReadAsync(path As String) As Task(Of Hashtable)
+        Using reader As New StreamReader(path)
+            Return Await ReadAsync(reader)
+        End Using
+    End Function
+
+    Public Async Function ReadAsync(reader As TextReader) As Task(Of Hashtable)
+        Return Await ReadAsync(New JsonTextReader(reader))
+    End Function
+
+    Public Async Function ReadAsync(reader As JsonReader) As Task(Of Hashtable)
+        If Await reader.ReadAsync Then
+            Return Await readHashAsync(reader)
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Async Function writeNodeAsync(data As Object, writer As JsonWriter) As Task
+        If TypeOf data Is Hashtable Then
+            Await writeHashAsync(data, writer)
+        ElseIf TypeOf data Is ArrayList Then
+            Await writeArrayAsync(data, writer)
+        ElseIf data Is Nothing Then
+            Await writer.WriteNullAsync()
+        Else
+            Await writer.WriteValueAsync(data)
+        End If
+    End Function
+
+    Private Async Function writeHashAsync(data As Hashtable, writer As JsonWriter) As Task
+        Await writer.WriteStartObjectAsync()
+        For Each k As String In data.Keys
+            Await writer.WritePropertyNameAsync(k)
+            Await writeNodeAsync(data(k), writer)
+        Next
+        Await writer.WriteEndObjectAsync()
+    End Function
+
+    Private Async Function writeArrayAsync(data As ArrayList, writer As JsonWriter) As Task
+        Await writer.WriteStartArrayAsync()
+        For Each v As Object In data
+            Await writeNodeAsync(v, writer)
+        Next
+        Await writer.WriteEndArrayAsync()
+    End Function
+
+    Private Async Function readNodeAsync(reader As JsonReader) As Task(Of Object)
+        Select Case reader.TokenType
+            Case JsonToken.StartArray
+                Return Await readArrayAsync(reader)
+            Case JsonToken.StartObject
+                Return Await readHashAsync(reader)
+            Case Else
+                Return reader.Value
+        End Select
+    End Function
+
+    Private Async Function readArrayAsync(reader As JsonReader) As Task(Of ArrayList)
+        Dim ret As New ArrayList
+        Do While Await reader.ReadAsync
+            If reader.TokenType = JsonToken.EndArray Then
+                Return ret
+            End If
+            ret.Add(Await readNodeAsync(reader))
+        Loop
+        Return ret
+    End Function
+
+    Private Async Function readHashAsync(reader As JsonReader) As Task(Of Hashtable)
+        Dim ret As New Hashtable
+        Do While Await reader.ReadAsync
+            Dim key As Object = Nothing
+            If reader.TokenType = JsonToken.EndObject Then
+                Return ret
+            End If
+            If reader.TokenType = JsonToken.PropertyName Then
+                key = reader.Value
+                Await reader.ReadAsync()
+            End If
+            ret.Add(key, Await readNodeAsync(reader))
+        Loop
+        Return ret
+    End Function
+
+
 End Module
