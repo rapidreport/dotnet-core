@@ -16,7 +16,17 @@ Public Module Json
     End Sub
 
     Public Sub Write(data As Hashtable, writer As JsonWriter)
-        writeHash(data, writer)
+        _writeHash(data, writer)
+    End Sub
+
+    Public Sub WriteArray(data As ArrayList, writer As TextWriter)
+        Using w As New JsonTextWriter(writer)
+            WriteArray(data, w)
+        End Using
+    End Sub
+
+    Public Sub WriteArray(data As ArrayList, writer As JsonWriter)
+        _writeArray(data, writer)
     End Sub
 
     Public Function Read(path As String) As Hashtable
@@ -31,17 +41,29 @@ Public Module Json
 
     Public Function Read(reader As JsonReader) As Hashtable
         If reader.Read Then
-            Return readHash(reader)
+            Return _readHash(reader)
         Else
             Return Nothing
         End If
     End Function
 
-    Private Sub writeNode(data As Object, writer As JsonWriter)
+    Public Function ReadArray(reader As TextReader) As ArrayList
+        Return ReadArray(New JsonTextReader(reader))
+    End Function
+
+    Public Function ReadArray(reader As JsonReader) As ArrayList
+        If reader.Read Then
+            Return _readArray(reader)
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Sub _writeNode(data As Object, writer As JsonWriter)
         If TypeOf data Is Hashtable Then
-            writeHash(data, writer)
+            _writeHash(data, writer)
         ElseIf TypeOf data Is ArrayList Then
-            writeArray(data, writer)
+            _writeArray(data, writer)
         ElseIf data Is Nothing Then
             writer.WriteNull()
         Else
@@ -49,46 +71,46 @@ Public Module Json
         End If
     End Sub
 
-    Private Sub writeHash(data As Hashtable, writer As JsonWriter)
+    Private Sub _writeHash(data As Hashtable, writer As JsonWriter)
         writer.WriteStartObject()
         For Each k As String In data.Keys
             writer.WritePropertyName(k)
-            writeNode(data(k), writer)
+            _writeNode(data(k), writer)
         Next
         writer.WriteEndObject()
     End Sub
 
-    Private Sub writeArray(data As ArrayList, writer As JsonWriter)
+    Private Sub _writeArray(data As ArrayList, writer As JsonWriter)
         writer.WriteStartArray()
         For Each v As Object In data
-            writeNode(v, writer)
+            _writeNode(v, writer)
         Next
         writer.WriteEndArray()
     End Sub
 
-    Private Function readNode(reader As JsonReader) As Object
+    Private Function _readNode(reader As JsonReader) As Object
         Select Case reader.TokenType
             Case JsonToken.StartArray
-                Return readArray(reader)
+                Return _readArray(reader)
             Case JsonToken.StartObject
-                Return readHash(reader)
+                Return _readHash(reader)
             Case Else
                 Return reader.Value
         End Select
     End Function
 
-    Private Function readArray(reader As JsonReader) As ArrayList
+    Private Function _readArray(reader As JsonReader) As ArrayList
         Dim ret As New ArrayList
         Do While reader.Read
             If reader.TokenType = JsonToken.EndArray Then
                 Return ret
             End If
-            ret.Add(readNode(reader))
+            ret.Add(_readNode(reader))
         Loop
         Return ret
     End Function
 
-    Private Function readHash(reader As JsonReader) As Hashtable
+    Private Function _readHash(reader As JsonReader) As Hashtable
         Dim ret As New Hashtable
         Do While reader.Read
             Dim key As Object = Nothing
@@ -99,7 +121,7 @@ Public Module Json
                 key = reader.Value
                 reader.Read()
             End If
-            ret.Add(key, readNode(reader))
+            ret.Add(key, _readNode(reader))
         Loop
         Return ret
     End Function
@@ -117,7 +139,17 @@ Public Module Json
     End Function
 
     Public Async Function WriteAsync(data As Hashtable, writer As JsonWriter) As Task
-        Await writeHashAsync(data, writer)
+        Await _writeHashAsync(data, writer)
+    End Function
+
+    Public Async Function WriteArrayAsync(data As ArrayList, writer As TextWriter) As Task
+        Using w As New JsonTextWriter(writer)
+            Await WriteArrayAsync(data, w)
+        End Using
+    End Function
+
+    Public Async Function WriteArrayAsync(data As ArrayList, writer As JsonWriter) As Task
+        Await _writeArrayAsync(data, writer)
     End Function
 
     Public Async Function ReadAsync(path As String) As Task(Of Hashtable)
@@ -138,11 +170,23 @@ Public Module Json
         End If
     End Function
 
-    Private Async Function writeNodeAsync(data As Object, writer As JsonWriter) As Task
+    Public Async Function ReadArrayAsync(reader As TextReader) As Task(Of ArrayList)
+        Return Await ReadArrayAsync(New JsonTextReader(reader))
+    End Function
+
+    Public Async Function ReadArrayAsync(reader As JsonReader) As Task(Of ArrayList)
+        If Await reader.ReadAsync Then
+            Return Await _readArrayAsync(reader)
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Async Function _writeNodeAsync(data As Object, writer As JsonWriter) As Task
         If TypeOf data Is Hashtable Then
-            Await writeHashAsync(data, writer)
+            Await _writeHashAsync(data, writer)
         ElseIf TypeOf data Is ArrayList Then
-            Await writeArrayAsync(data, writer)
+            Await _writeArrayAsync(data, writer)
         ElseIf data Is Nothing Then
             Await writer.WriteNullAsync()
         Else
@@ -150,27 +194,27 @@ Public Module Json
         End If
     End Function
 
-    Private Async Function writeHashAsync(data As Hashtable, writer As JsonWriter) As Task
+    Private Async Function _writeHashAsync(data As Hashtable, writer As JsonWriter) As Task
         Await writer.WriteStartObjectAsync()
         For Each k As String In data.Keys
             Await writer.WritePropertyNameAsync(k)
-            Await writeNodeAsync(data(k), writer)
+            Await _writeNodeAsync(data(k), writer)
         Next
         Await writer.WriteEndObjectAsync()
     End Function
 
-    Private Async Function writeArrayAsync(data As ArrayList, writer As JsonWriter) As Task
+    Private Async Function _writeArrayAsync(data As ArrayList, writer As JsonWriter) As Task
         Await writer.WriteStartArrayAsync()
         For Each v As Object In data
-            Await writeNodeAsync(v, writer)
+            Await _writeNodeAsync(v, writer)
         Next
         Await writer.WriteEndArrayAsync()
     End Function
 
-    Private Async Function readNodeAsync(reader As JsonReader) As Task(Of Object)
+    Private Async Function _readNodeAsync(reader As JsonReader) As Task(Of Object)
         Select Case reader.TokenType
             Case JsonToken.StartArray
-                Return Await readArrayAsync(reader)
+                Return Await _readArrayAsync(reader)
             Case JsonToken.StartObject
                 Return Await readHashAsync(reader)
             Case Else
@@ -178,13 +222,13 @@ Public Module Json
         End Select
     End Function
 
-    Private Async Function readArrayAsync(reader As JsonReader) As Task(Of ArrayList)
+    Private Async Function _readArrayAsync(reader As JsonReader) As Task(Of ArrayList)
         Dim ret As New ArrayList
         Do While Await reader.ReadAsync
             If reader.TokenType = JsonToken.EndArray Then
                 Return ret
             End If
-            ret.Add(Await readNodeAsync(reader))
+            ret.Add(Await _readNodeAsync(reader))
         Loop
         Return ret
     End Function
@@ -200,7 +244,7 @@ Public Module Json
                 key = reader.Value
                 Await reader.ReadAsync()
             End If
-            ret.Add(key, Await readNodeAsync(reader))
+            ret.Add(key, Await _readNodeAsync(reader))
         Loop
         Return ret
     End Function
