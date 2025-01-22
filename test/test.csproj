@@ -78,6 +78,12 @@
     <None Update="rrpt\test_5_14_pdfbarcode.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="rrpt\test_5_18_indexof.rrpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="rrpt\test_5_18_vertical.rrpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="rrpt\test_5_7_charspacing_ng.rrpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

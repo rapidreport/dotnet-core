@@ -33,6 +33,8 @@ namespace test
             Tests.Add(new Test_5_14_PdfBarcode());
             Tests.Add(new Test_5_14_Color());
             Tests.Add(new Test_5_14_Date());
+            Tests.Add(new Test_5_18_Vertical());
+            Tests.Add(new Test_5_18_IndexOf());
 
             Application.Run(new FmTest());
         }
