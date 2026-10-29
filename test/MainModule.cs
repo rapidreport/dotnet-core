@@ -20,6 +20,7 @@ namespace test
             Tests.Add(new Test_0_3());
             Tests.Add(new Test_0_4());
             Tests.Add(new Test_0_5_PDF());
+            Tests.Add(new Test_0_5_XLSX());
             Tests.Add(new Test_0_6());
             Tests.Add(new Test_5_7_YbCode());
             Tests.Add(new Test_5_7_IsNumeric());
